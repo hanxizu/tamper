@@ -370,6 +370,7 @@ class FacebookPostLibrary {
         }
     }
 }
-
+// 确保类在全局范围内可用
+window.FacebookPostLibrary = FacebookPostLibrary;
 // Export the class
 //module.exports =  FacebookPostLibrary;
