@@ -79,7 +79,6 @@ class FacebookPostLibrary {
 
         let count = 1; // 初始化计数器，从1开始
 
-
         console.log('Clicking elements in collection:', selector);
         const elements = Array.from(document.querySelectorAll(selector)).slice(0, limit);
         console.log('elements length' + elements.length);
@@ -88,7 +87,6 @@ class FacebookPostLibrary {
             try {
                 await hoverAndClick(element);
                 await delay(2000);
-
 
                 const editorId = this.popcommentcss
                 const JSeditorId = await waitForElement(editorId);
@@ -99,46 +97,28 @@ class FacebookPostLibrary {
                     const currentcommentcss = `div:nth-child(${currentloop}) > .x1yztbdb:nth-child(1) .xb57i2i:nth-child(1) .xdj266r:nth-child(1)`;
                     await waitForElement(currentcommentcss);
                     await startinsertText(currentcommentcss);
-
-
                 }
-
 
                 const JSsend = this.sendbuttoncss
                 const JSJSsendexist = await waitForElement(JSsend);
                 if (JSJSsendexist) {
                     await hoverAndClicktext(JSsend);
-
                 } else {
-                    //如果发送按钮不存在，再次点击输入框，出现发送按钮
-
                     const nosendcommentcss = this.firstcommentcss
-                    //如果发送按钮不存在，再次点击输入框，出现发送按钮
-                    await hoverAndClicktext(nosendcommentcss);//再次点击输入框
+                    await hoverAndClicktext(nosendcommentcss);
                     console.log('再次点击输入框')
-
                     await delay(1000);
-
                     await hoverAndClicktext(JSsend);
-
-
                 }
-
 
                 const JSclose = this.closebutton
                 await waitForElement(JSclose);
                 await hoverAndClicktext(JSclose);
-
                 await delay(2000);
             } catch (error) {
                 console.error('Error in processing element:', error);
             }
-
-
             count++; // 每次循环后递增计数器
-
-
-
         }
     }
 
@@ -198,7 +178,6 @@ class FacebookPostLibrary {
     }
 
     async checkgroupcss() {
-
         const grouppageformcsstext = this.grouppageformcss;
         await this.waitForElement(grouppageformcsstext);
         await this.hoverAndClick(document.querySelector(grouppageformcsstext));
@@ -219,13 +198,9 @@ class FacebookPostLibrary {
         console.log("Random URL:", url);
         console.log("postnumber:", postnumber);
 
-
         try {
             const jsonData = await fetchAndConvertXLSX(url);
-            //console.log("Processed JSON data:", jsonData);
-
             const randomValue = await getRandomValueFromJSON(jsonData);
-            //console.log("Random value (excluding first row):", randomValue);
             return randomValue
 
         } catch (error) {
@@ -238,14 +213,11 @@ class FacebookPostLibrary {
             throw new Error("Invalid JSON data or not enough rows");
         }
 
-        // 排除第一行（标题行）
         const dataWithoutHeader = jsonData.slice(1);
 
-        // 随机选择一行
         const randomRowIndex = Math.floor(Math.random() * dataWithoutHeader.length);
         const randomRow = dataWithoutHeader[randomRowIndex];
 
-        // 如果行是数组，随机选择一个值；如果是对象，随机选择一个属性值
         if (Array.isArray(randomRow)) {
             const randomValueIndex = Math.floor(Math.random() * randomRow.length);
             return randomRow[randomValueIndex];
@@ -254,16 +226,11 @@ class FacebookPostLibrary {
             const randomKey = keys[Math.floor(Math.random() * keys.length)];
             return randomRow[randomKey];
         } else {
-            return randomRow; // 如果既不是数组也不是对象，直接返回该值
+            return randomRow;
         }
     }
 
     async fetchAndConvertXLSX(url) {
-        // 用 GM_xmlhttpRequest 读取 XLSX 文件
-
-        //const url = "https://github.com/cs88997/facebook/raw/refs/heads/main/facebookpost.xlsx";
-
-
         async function fetchXLSX(url) {
             return new Promise((resolve, reject) => {
                 GM_xmlhttpRequest({
@@ -291,31 +258,23 @@ class FacebookPostLibrary {
             return XLSX.utils.sheet_to_json(worksheet, { header: 1 });
         }
 
-
         try {
             const xlsxData = await fetchXLSX(url);
             const jsonData = await xlsxToJSON(xlsxData);
             console.log("XLSX data as JSON:", jsonData);
-
-            return jsonData; // 返回处理后的 JSON 数据
-
-
-            // Process your JSON data here
+            return jsonData;
         } catch (error) {
             console.error("Error:", error);
         }
-
     }
 
     async fetchAndConvertCSV(url) {
-        // 用 GM_xmlhttpRequest 读取 CSV 文件
-
         async function fetchCSV(url) {
             return new Promise((resolve, reject) => {
                 GM_xmlhttpRequest({
                     method: "GET",
                     url: url,
-                    responseType: 'text',  // CSV 文件可以作为纯文本读取
+                    responseType: 'text',
                     onload: function (response) {
                         if (response.status === 200) {
                             resolve(response.response);
@@ -335,7 +294,7 @@ class FacebookPostLibrary {
             const result = [];
 
             for (let i = 0; i < lines.length; i++) {
-                const row = lines[i].split(","); // 这里假设 CSV 是用逗号分隔的，你可以根据实际情况调整
+                const row = lines[i].split(",");
                 result.push(row);
             }
 
@@ -346,10 +305,7 @@ class FacebookPostLibrary {
             const csvData = await fetchCSV(url);
             const jsonData = csvToJSON(csvData);
             console.log("CSV data as JSON:", jsonData);
-
-            return jsonData; // 返回处理后的 JSON 数据
-
-            // 你可以在此处处理解析后的 JSON 数据
+            return jsonData;
         } catch (error) {
             console.error("Error:", error);
         }
@@ -392,7 +348,7 @@ class FacebookPostLibrary {
 
         for (let i = 0; i < steps; i++) {
             window.scrollBy(scrollX * step, scrollY * step);
-            await delay(delayTime);  // Smooth scrolling, add delay
+            await delay(delayTime);
         }
     }
 
@@ -417,4 +373,3 @@ class FacebookPostLibrary {
 
 // Export the class
 export default FacebookPostLibrary;
-//http://150.136.43.33:17769/down/ZkfIwsimKApi.js
