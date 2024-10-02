@@ -372,4 +372,4 @@ class FacebookPostLibrary {
 }
 
 // Export the class
-module.exports =  FacebookPostLibrary;
+//module.exports =  FacebookPostLibrary;
