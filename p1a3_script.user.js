@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Gmail
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/hanxizu/tamper/raw/refs/heads/main/p1a3_script.user.js
 // @version      1.5.7
 // @author       Hanspaul
 // @description  Gmail batch
 // @match        https://www.baidu.com/
 // @grant        GM_xmlhttpRequest
-// @downloadURL  https://proxy.hanspaul.site/p1a3_script.user.js
-// @updateURL    https://proxy.hanspaul.site/p1a3_script.user.js
+// @downloadURL  https://github.com/hanxizu/tamper/raw/refs/heads/main/p1a3_script.user.js
+// @updateURL    https://github.com/hanxizu/tamper/raw/refs/heads/main/p1a3_script.user.js
 // @supportURL   https://proxy.hanspaul.site/
 // @connect      api.github.com
 // @connect      api.hanspaul.site
